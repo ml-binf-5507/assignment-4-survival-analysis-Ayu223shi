@@ -1,0 +1,31 @@
+# Outputs Directory
+
+This directory will contain the generated output files from your survival analysis.
+
+## Required Outputs
+
+Your analysis should generate these 3 files:
+
+### Kaplan-Meier Analysis
+- `km_survival_plot.png` - Survival curves comparing groups
+
+### Cox Proportional Hazards
+- `cox_summary.csv` - Regression coefficients, hazard ratios, p-values
+
+### Random Survival Forest
+- `rsf_importance.png` - Feature importance bar chart
+
+## File Formats
+
+### CSV Files
+```csv
+covariate,coef,exp(coef),se(coef),z,p,lower 95%,upper 95%
+age,0.023,1.023,0.011,2.09,0.037,1.001,1.046
+stage_III,0.567,1.763,0.234,2.42,0.015,1.114,2.791
+...
+```
+
+## .gitkeep
+
+This file exists to keep the empty `outputs/` directory in git.
+You can delete this README after generating your outputs.
