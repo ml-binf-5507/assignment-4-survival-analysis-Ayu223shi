@@ -53,7 +53,6 @@ def compute_logrank_test(
     }
     
 
-
 def plot_km_curves(
     km_models: Dict[str, Any],
     filename: str = "km_survival_plot.png",
