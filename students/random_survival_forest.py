@@ -5,6 +5,7 @@ Students implement Random Survival Forest using scikit-survival.
 """
 
 from sksurv.ensemble import RandomSurvivalForest
+from sklearn.inspection import permutation_importance
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -35,17 +36,27 @@ def compute_concordance_index(
 
 def get_feature_importance(
     rsf_model,
-    feature_names,
-) :
-    importance = pd.DataFrame(
-        {
-            "feature": feature_names,
-            "importance": rsf_model.feature_importances_,
-        }
+    X_test,
+    y_test,
+):
+    result = permutation_importance(
+        rsf_model,
+        X_test,
+        y_test,
+        n_repeats=10,
+        random_state=42,
+        n_jobs=-1,
     )
 
-    importance = importance.sort_values(by="importance", ascending=False).reset_index(drop=True)
-    return importance
+    importance = pd.DataFrame({
+        "feature": X_test.columns,
+        "importance": result.importances_mean,
+    })
+
+    return importance.sort_values(
+        by="importance",
+        ascending=False
+    ).reset_index(drop=True)
 
 def plot_feature_importance(
     importance_df,
