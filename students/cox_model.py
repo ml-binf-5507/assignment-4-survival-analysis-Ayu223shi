@@ -51,4 +51,26 @@ def extract_cox_summary(cox_model) :
     })
    
 
+def test_proportional_hazards(
+    cox_model,
+    data,
+    time_col,
+    event_col,
+):
 
+    # Use the same dataframe that was used to fit the model
+    results = proportional_hazard_test(
+        cox_model,
+        cox_model.training_df,
+        time_transform="rank"
+    )
+
+    ph = {}
+
+    for cov in results.summary.index:
+        ph[cov] = {
+            "test_statistic": float(results.summary.loc[cov, "test_statistic"]),
+            "p_value": float(results.summary.loc[cov, "p"])
+        }
+
+    return ph
