@@ -20,7 +20,6 @@ def fit_cox_model(
     if len(covariates) < 3:
         raise ValueError("Cox model must include at least 3 covariates")
     
-    raise NotImplementedError("Implement Cox PH model fitting here")
     df = data[[time_col, event_col ] + covariates].copy()
 
     #one-hot encode categorical variables
