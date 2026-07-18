@@ -43,27 +43,29 @@ def extract_cox_summary(cox_model) :
         "exp(coef) upper 95%": "upper 95%"
     })
    
-
 def test_proportional_hazards(
-    cox_model: Any,
-    data: pd.DataFrame,
-    time_col: str,
-    event_col: str,
-) -> Dict[str, Dict[str, float]]:
-    
-    cols = [time_col, event_col] + list(cox_model.params_.index)
-    df = data.copy()
-    df = pd.get_dummies(df[cols], drop_first=True)
-    df = df[cols]
-    results = proportional_hazard_test(cox_model, data, time_transform='rank')
+    cox_model,
+    data,
+    time_col,
+    event_col,
+):
+
+    # Recreate the exact dataframe used to fit the model
+    df = pd.get_dummies(data.copy(), drop_first=True)
+
+    results = proportional_hazard_test(
+        cox_model,
+        df,
+        time_transform="rank"
+    )
+
     ph = {}
+
     for cov in results.summary.index:
         ph[cov] = {
             "test_statistic": float(results.summary.loc[cov, "test_statistic"]),
             "p_value": float(results.summary.loc[cov, "p"])
         }
-    return ph
-   
-    
 
+    return ph
    
