@@ -50,6 +50,11 @@ def test_proportional_hazards(
     time_col: str,
     event_col: str,
 ) -> Dict[str, Dict[str, float]]:
+    
+    cols = [time_col, event_col] + list(cox_model.params_.index)
+    df = data.copy()
+    df = pd.get_dummies(df[cols], drop_first=True)
+    df = df[cols]
     results = proportional_hazard_test(cox_model, data, time_transform='rank')
     ph = {}
     for cov in results.summary.index:
