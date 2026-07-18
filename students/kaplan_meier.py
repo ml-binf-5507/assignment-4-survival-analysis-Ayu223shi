@@ -34,7 +34,7 @@ def compute_logrank_test(
     group_col: str,
 ) -> Dict[str, float]:
     
-    groups = data[group_col].unique()
+    groups = data[group_col].dropna().unique()
     if len(groups) != 2:
         raise ValueError("Log-rank test requires exactly 2 groups")
     
