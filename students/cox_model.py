@@ -17,15 +17,22 @@ def fit_cox_model(
     event_col: str,
     covariates: List[str],
 ) -> Any:
+
     if len(covariates) < 3:
         raise ValueError("Cox model must include at least 3 covariates")
-    
-    df = data[[time_col, event_col ] + covariates].copy()
 
-    #one-hot encode categorical variables
+    # Keep only the variables used in the model
+    df = data[[time_col, event_col] + covariates].copy()
+
+    # One-hot encode categorical variables
     df = pd.get_dummies(df, drop_first=True)
+
     cph = CoxPHFitter()
     cph.fit(df, duration_col=time_col, event_col=event_col)
+
+    # Save the processed dataframe for PH testing
+    cph.training_df = df
+
     return cph
 
 
@@ -43,29 +50,5 @@ def extract_cox_summary(cox_model) :
         "exp(coef) upper 95%": "upper 95%"
     })
    
-def test_proportional_hazards(
-    cox_model,
-    data,
-    time_col,
-    event_col,
-):
 
-    # Recreate the exact dataframe used to fit the model
-    df = pd.get_dummies(data.copy(), drop_first=True)
 
-    results = proportional_hazard_test(
-        cox_model,
-        df,
-        time_transform="rank"
-    )
-
-    ph = {}
-
-    for cov in results.summary.index:
-        ph[cov] = {
-            "test_statistic": float(results.summary.loc[cov, "test_statistic"]),
-            "p_value": float(results.summary.loc[cov, "p"])
-        }
-
-    return ph
-   
