@@ -16,7 +16,7 @@ def fit_random_survival_forest(
     y_train,
     n_estimators= 100,
     random_state = 42,
-) :
+):
     rsf = RandomSurvivalForest(
         n_estimators=n_estimators,
         random_state=random_state,
@@ -36,29 +36,17 @@ def compute_concordance_index(
 
 def get_feature_importance(
     rsf_model,
-    X_test,
-    y_test,
+    feature_names,
 ):
-    result = permutation_importance(
-        rsf_model,
-        X_test,
-        y_test,
-        n_repeats=3,
-        random_state=42,
-        n_jobs=1,
-    )
-
     importance = pd.DataFrame({
-        "feature": X_test.columns,
-        "importance": result.importances_mean,
+        "feature": feature_names,
+        "importance": rsf_model.feature_importances_
     })
 
-    importance.sort_values(
+    return importance.sort_values(
         by="importance",
         ascending=False
     ).reset_index(drop=True)
-
-    return importance
 
 def plot_feature_importance(
     importance_df,
