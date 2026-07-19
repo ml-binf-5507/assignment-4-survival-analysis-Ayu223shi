@@ -43,9 +43,9 @@ def get_feature_importance(
         rsf_model,
         X_test,
         y_test,
-        n_repeats=10,
+        n_repeats=3,
         random_state=42,
-        n_jobs=-1,
+        n_jobs=1,
     )
 
     importance = pd.DataFrame({
@@ -53,10 +53,12 @@ def get_feature_importance(
         "importance": result.importances_mean,
     })
 
-    return importance.sort_values(
+    importance.sort_values(
         by="importance",
         ascending=False
     ).reset_index(drop=True)
+
+    return importance
 
 def plot_feature_importance(
     importance_df,
