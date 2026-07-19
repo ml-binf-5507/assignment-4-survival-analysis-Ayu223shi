@@ -1,0 +1,74 @@
+{
+  "Age": {
+    "test_statistic": 13.519222696069114,
+    "p_value": 0.00023613220159383763
+  },
+  "Chemo_none": {
+    "test_statistic": 0.028713099870939483,
+    "p_value": 0.8654431680239146
+  },
+  "Dose": {
+    "test_statistic": 0.030073094731829824,
+    "p_value": 0.8623244819184432
+  },
+  "HPV_Yes, positive": {
+    "test_statistic": 4.4933314231291925,
+    "p_value": 0.03402730588260579
+  },
+  "Sex_Male": {
+    "test_statistic": 3.274290429131939,
+    "p_value": 0.07037335247048465
+  },
+  "Stage_I": {
+    "test_statistic": 3.453304107643153,
+    "p_value": 0.06312546084452139
+  },
+  "Stage_IB": {
+    "test_statistic": 5.085864504188677e-09,
+    "p_value": 0.9999430986652401
+  },
+  "Stage_II": {
+    "test_statistic": 1.4969150962863706,
+    "p_value": 0.2211466355218454
+  },
+  "Stage_IIA": {
+    "test_statistic": 8.491027402632843e-07,
+    "p_value": 0.9992647752450935
+  },
+  "Stage_IIB": {
+    "test_statistic": 0.048600468243941417,
+    "p_value": 0.825516706906196
+  },
+  "Stage_III": {
+    "test_statistic": 0.0632495709961416,
+    "p_value": 0.8014316795182415
+  },
+  "Stage_IIIA": {
+    "test_statistic": 0.1796948993336067,
+    "p_value": 0.6716355704125931
+  },
+  "Stage_IIIC": {
+    "test_statistic": 0.23357595857355862,
+    "p_value": 0.6288848931011086
+  },
+  "Stage_IV": {
+    "test_statistic": 0.043070520590864296,
+    "p_value": 0.8355925425139042
+  },
+  "Stage_IVA": {
+    "test_statistic": 0.39460247837334034,
+    "p_value": 0.529890010636504
+  },
+  "Stage_IVB": {
+    "test_statistic": 2.9769675538807356,
+    "p_value": 0.08445737393902421
+  },
+  "Stage_IVC": {
+    "test_statistic": 2.3105574152805073e-07,
+    "p_value": 0.999616470806526
+  },
+  "Stage_X": {
+    "test_statistic": 0.3456052511351787,
+    "p_value": 0.5566114961589981
+  }
+}
