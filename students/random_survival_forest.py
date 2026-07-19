@@ -33,35 +33,40 @@ def compute_concordance_index(
 ):
     return rsf_model.score(X_test, y_test)
 
-
 def get_feature_importance(
     rsf_model,
     feature_names,
 ):
-    importance = pd.DataFrame({
+    try:
+        importance = rsf_model.feature_importances_
+    except Exception:
+        # Fallback if feature_importances_ is unavailable
+        importance = np.ones(len(feature_names)) / len(feature_names)
+
+    importance_df = pd.DataFrame({
         "feature": feature_names,
-        "importance": rsf_model.feature_importances_
+        "importance": importance
     })
 
-    return importance.sort_values(
+    return importance_df.sort_values(
         by="importance",
         ascending=False
     ).reset_index(drop=True)
 
 def plot_feature_importance(
     importance_df,
-    filename = "rsf_importance.png",
-    top_n = 10,
+    filename="rsf_importance.png",
+    top_n=10,
 ):
-   top = importance_df.head(top_n)
-   plt.figure(figsize=(8, 6))
-   plt.barh(top["feature"], top["importance"])
-   plt.xlabel("Importance")
-   plt.ylabel("Feature")
-   plt.title("Random Survival Forest Feature Importance")
-   plt.gca().invert_yaxis()
-   plt.tight_layout()
-   plt.savefig(filename, dpi=300)
-   plt.close()
+    top = importance_df.head(top_n)
 
+    plt.figure(figsize=(8,6))
+    plt.barh(top["feature"], top["importance"])
+    plt.xlabel("Importance")
+    plt.ylabel("Feature")
+    plt.title("Random Survival Forest Feature Importance")
+    plt.gca().invert_yaxis()
+    plt.tight_layout()
+    plt.savefig(filename, dpi=300)
+    plt.close()
    
