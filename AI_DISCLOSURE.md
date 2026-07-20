@@ -25,7 +25,7 @@ Do NOT:
 ## 1. Did you use AI for this assignment?
 
 - [ ] Yes
-- [ ] No
+- [ ✅] No
 
 If **No**, you are done.
 
